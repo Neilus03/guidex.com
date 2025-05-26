@@ -63,7 +63,7 @@
         <span class="icon">
           <img src="static/images/github_logo_icon_206752.webp" alt="GitHub">
         </span>
-        <span>Code&nbsp;(soon)</span>
+        <span>Code&nbsp;</span>
       </span>
 
       <!-- Model -->
@@ -92,11 +92,16 @@
   <div class="container is-max-desktop content">
     <h2 class="title is-4">Abstract</h2>
     <p>
-      IE systems often fail when label definitions change. <b>GUIDEX</b> fixes
-      that: it infers a domain schema, writes guidelines, and generates
-      rule-consistent examples. Fine-tuning LLaMa-3 8B on those examples lifts
-      zero-shot NER by up to <b>+7 F1</b> on seven benchmarks and still helps
-      when gold data is present. The paper, model and data will be released.
+      Information Extraction (IE) systems are traditionally domain-specific,
+      requiring costly adaptation that involves expert schema design, data annotation,
+      and model training. While Large Language Models have shown promise in zero-shot IE,
+      performance degrades significantly in unseen domains where label definitions differ.
+      This paper introduces <b>GUIDEX</b>, a novel method that automatically defines domain-specific schemas,
+      infers guidelines, and generates synthetically labeled instances, allowing for better out-of-domain generalization.
+      Fine-tuning LLaMa 3.1 with <b>GUIDEX</b> sets a new state-of-the-art across seven zero-shot Named Entity Recognition benchmarks. 
+      Models trained with <b>GUIDEX</b> gain up to 7 F1 points over previous methods without human-labeled data, 
+      and nearly 3 F1 points higher when combined with it.
+      Models trained on <b>GUIDEX</b> demonstrate enhanced comprehension of complex, domain-specific annotation schemas.
     </p>
   </div>
 </section>
