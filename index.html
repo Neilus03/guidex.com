@@ -96,13 +96,23 @@
       requiring costly adaptation that involves expert schema design, data annotation,
       and model training. While Large Language Models have shown promise in zero-shot IE,
       performance degrades significantly in unseen domains where label definitions differ.
-      This paper introduces <b>GUIDEX</b>, a novel method that automatically defines domain-specific schemas,
+      This paper introduces <b>GuideX</b>, a novel method that automatically defines domain-specific schemas,
       infers guidelines, and generates synthetically labeled instances, allowing for better out-of-domain generalization.
-      Fine-tuning LLaMa 3.1 with <b>GUIDEX</b> sets a new state-of-the-art across seven zero-shot Named Entity Recognition benchmarks. 
-      Models trained with <b>GUIDEX</b> gain up to 7 F1 points over previous methods without human-labeled data, 
+      Fine-tuning LLaMa 3.1 with GuideX sets a new state-of-the-art across seven zero-shot Named Entity Recognition benchmarks. 
+      Models trained with GuideX gain <b>up to 7 F1 points</b> over previous methods without human-labeled data, 
       and nearly 3 F1 points higher when combined with it.
-      Models trained on <b>GUIDEX</b> demonstrate enhanced comprehension of complex, domain-specific annotation schemas.
+      Models trained on GuideX demonstrate enhanced comprehension of complex, domain-specific annotation schemas.
     </p>
+  </div>
+  <div class="figure-wrapper">
+    <figure>
+      <img src="static/images/GuideX.jpg"
+           alt="F1 bar-plot on seven NER domains">
+      <figcaption class="has-text-centered">
+        Zero-shot NER. Training on <b>GuideX</b> (+Gold) beats the
+        Gold-only model on five out of seven domains.
+      </figcaption>
+    </figure>
   </div>
 </section>
 
@@ -208,16 +218,6 @@
 <section class="section">
   <div class="container content">
     <h2 class="title is-4">Results</h2>
-    <div class="figure-wrapper">
-      <figure>
-        <img src="static/images/GuideX.jpg"
-             alt="F1 bar-plot on seven NER domains">
-        <figcaption class="has-text-centered">
-          Zero-shot NER. Training on <b>GUIDEX</b> (+Gold) beats the
-          Gold-only model on six of seven domains.
-        </figcaption>
-      </figure>
-    </div>
 
     <!-- tables as images -->
     <div class="figure-wrapper" style="margin-top:1.5rem">
