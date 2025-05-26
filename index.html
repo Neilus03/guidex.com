@@ -4,30 +4,36 @@
   <meta charset="utf-8">
   <title>GUIDEX – ACL Findings 2025</title>
 
-  <!-- Social card -->
-  <meta name="description" content="GUIDEX: guided synthetic data for zero-shot information extraction.">
-  <meta property="og:title" content="GUIDEX – ACL Findings 2025">
+  <!-- ── social card ──────────────────────────────────────────────────────── -->
+  <meta name="description"        content="GUIDEX: guided synthetic data for zero-shot information extraction.">
+  <meta property="og:title"       content="GUIDEX – ACL Findings 2025">
   <meta property="og:description" content="Synthetic data and guidelines for zero-shot IE">
-  <meta property="og:image" content="static/images/banner.png">
-  <meta name="twitter:card" content="summary_large_image">
+  <meta property="og:image"       content="static/images/GuideX.jpg">
+  <meta name="twitter:card"       content="summary_large_image">
 
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <link rel="icon" href="static/images/favicon.ico">
 
   <!-- Bulma -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+
+  <!-- Free Font Awesome (needed for PDF icon only) -->
   <link rel="stylesheet"
-        href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+        integrity="sha512-MW3CM8LZq3pNiQe2pZqUlbIk2xM1y0li0lbt11Mm+UFcDn8TlaQOQeOZkqwiYB+kPH7NoQzSmvKNwT8C2n0Zig=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
 
   <style>
-    body {font-family: 'Noto Sans', sans-serif;}
-    .hero {padding: 2.5rem 1.5rem;}
+    body  {font-family:'Noto Sans',sans-serif;}
+    .hero {padding:2.5rem 1.5rem;}
     .buttons .button.is-soon {opacity:.35;cursor:default;}
     .figure-wrapper {max-width:800px;margin:auto;}
+    .icon img {height:1em;width:auto;}
   </style>
 </head>
 <body>
 
-<!-- =========== Header =========== -->
+<!-- =========== Header ===================================================== -->
 <section class="hero">
   <div class="container has-text-centered">
     <h1 class="title is-2">GuideX</h1>
@@ -44,38 +50,43 @@
     <p><small><sup>*</sup>Equal contribution</small></p>
 
     <div class="buttons is-centered" style="margin-top:1rem">
-      <!-- PDF -->
+      <!-- Paper -->
       <a class="button is-dark is-rounded"
          href="static/pdfs/guidex_acl25.pdf" target="_blank">
         <span class="icon"><i class="fas fa-file-pdf"></i></span>
         <span>Paper</span>
       </a>
 
-      <!-- Code  -->
-      <span class="button is-dark is-rounded is-soon"
-        href="https://github.com/Neilus03/GUIDEX" target="_blank">
-        <span class="icon"><i class="fab fa-github"></i></span>
+      <!-- Code (soon) -->
+      <span class="button is-dark is-rounded is-soon">
+        <span class="icon">
+          <img src="static/images/github_logo_icon_206752.webp" alt="GitHub">
+        </span>
         <span>Code&nbsp;(soon)</span>
       </span>
 
       <!-- Model -->
       <a class="button is-dark is-rounded"
          href="https://huggingface.co/TODO-model" target="_blank">
-        <span class="icon"><i class="fas fa-robot"></i></span>
+        <span class="icon">
+          <img src="static/images/huggingface_logo_noborder.svg" alt="HF">
+        </span>
         <span>Model</span>
       </a>
 
       <!-- Dataset -->
       <a class="button is-dark is-rounded"
          href="https://huggingface.co/datasets/TODO-dataset" target="_blank">
-        <span class="icon"><i class="fas fa-database"></i></span>
+        <span class="icon">
+          <img src="static/images/huggingface_logo_noborder.svg" alt="HF">
+        </span>
         <span>Dataset</span>
       </a>
     </div>
   </div>
 </section>
 
-<!-- =========== Abstract =========== -->
+<!-- =========== Abstract =================================================== -->
 <section class="section">
   <div class="container is-max-desktop content">
     <h2 class="title is-4">Abstract</h2>
@@ -89,11 +100,12 @@
   </div>
 </section>
 
-<!-- =========== Methodology =========== -->
+<!-- =========== Methodology ================================================= -->
 <section class="section is-light">
   <div class="container is-max-desktop content">
-    <h2 class="title is-4">Methodology&nbsp;&nbsp;
-      <span class="tag is-info is-light">4 steps</span></h2>
+    <h2 class="title is-4">
+      Methodology&nbsp;&nbsp;<span class="tag is-info is-light">4 steps</span>
+    </h2>
     <ol>
       <li><b>Summarise.</b> The LLM turns each document into bullet
           points of key facts.</li>
@@ -103,41 +115,66 @@
       <li><b>Annotate.</b> It fills those classes with spans from
           the text, giving clean training pairs.</li>
     </ol>
-    <p>
-      A sanity script imports each file; any sample that raises an
-      error is dropped, which cuts hallucinated labels and bad spans.
-    </p>
-  </div>
-</section>
+    <p>A sanity script imports every file; anything that raises an error is
+       dropped, removing hallucinated labels and spans.</p>
 
-<!-- =========== Results Figure =========== -->
-<section class="section">
-  <div class="container content">
-    <h2 class="title is-4">Results</h2>
-    <div class="figure-wrapper">
+    <!-- diagram -->
+    <div class="figure-wrapper" style="margin-top:1.5rem">
       <figure>
-        <img src="static/images/barplot.png"
-             alt="F1 bar-plot showing gains on seven NER tasks">
-        <figcaption class="has-text-centered">
-          Zero-shot NER. Training on GUIDEX (+Gold) beats the
-          Gold-only model on six out of seven domains.
-        </figcaption>
+        <img src="static/images/figure_main.jpg"
+             alt="4-step pipeline diagram">
       </figure>
     </div>
   </div>
 </section>
 
-<!-- =========== Footer =========== -->
+<!-- =========== Prompt figure ============================================== -->
+<section class="section">
+  <div class="container content">
+    <h2 class="title is-4">Prompt Suite</h2>
+    <div class="figure-wrapper">
+      <figure>
+        <img src="static/images/figure_prompts.jpg"
+             alt="Full prompt templates">
+      </figure>
+    </div>
+  </div>
+</section>
+
+<!-- =========== Results ===================================================== -->
+<section class="section">
+  <div class="container content">
+    <h2 class="title is-4">Results</h2>
+    <div class="figure-wrapper">
+      <figure>
+        <img src="static/images/GuideX.jpg"
+             alt="F1 bar-plot on seven NER domains">
+        <figcaption class="has-text-centered">
+          Zero-shot NER. Training on <b>GUIDEX</b> (+Gold) beats the
+          Gold-only model on six of seven domains.
+        </figcaption>
+      </figure>
+    </div>
+
+    <!-- tables as images -->
+    <div class="figure-wrapper" style="margin-top:1.5rem">
+      <figure>
+        <img src="static/images/table2.png" alt="Table 2 – ablation">
+      </figure>
+      <figure style="margin-top:1rem">
+        <img src="static/images/table4.png" alt="Table 4 – per-label gains">
+      </figure>
+    </div>
+  </div>
+</section>
+
+<!-- =========== Footer ====================================================== -->
 <footer class="footer">
   <div class="content has-text-centered">
     Page built with the
     <a href="https://github.com/eliahuhorwitz/Academic-project-page-template"
-       target="_blank">Academic&nbsp;Project&nbsp;Page&nbsp;Template</a>.
+       target="_blank">Academic Project Page Template</a>.
   </div>
 </footer>
-
-<!-- Font Awesome icons -->
-<script defer src="https://kit.fontawesome.com/2b8f3e36f7.js"
-        crossorigin="anonymous"></script>
 </body>
 </html>
