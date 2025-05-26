@@ -1,87 +1,142 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
   <meta charset="utf-8">
   <title>GUIDEX – ACL Findings 2025</title>
+
+  <!-- Social card -->
+  <meta name="description" content="GUIDEX: guided synthetic data for zero-shot information extraction.">
+  <meta property="og:title" content="GUIDEX – ACL Findings 2025">
+  <meta property="og:description" content="Synthetic data and guidelines for zero-shot IE">
+  <meta property="og:image" content="static/images/banner.png">
+  <meta name="twitter:card" content="summary_large_image">
+
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <meta name="description" content="Guided synthetic data generation for zero-shot information extraction (ACL Findings 2025).">
   <link rel="icon" href="static/images/favicon.ico">
 
-  <!-- tiny bit of Bulma just for layout -->
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+  <!-- Bulma -->
+  <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+
   <style>
-    body {font-family: "Noto Sans", sans-serif;}
+    body {font-family: 'Noto Sans', sans-serif;}
     .hero {padding: 2.5rem 1.5rem;}
-    .buttons .button.is-soon {opacity:.4;cursor:default;}
+    .buttons .button.is-soon {opacity:.35;cursor:default;}
+    .figure-wrapper {max-width:800px;margin:auto;}
   </style>
 </head>
 <body>
 
+<!-- =========== Header =========== -->
 <section class="hero">
   <div class="container has-text-centered">
     <h1 class="title is-2">GUIDEX</h1>
-    <p class="subtitle is-5">Guided Synthetic Data Generation for Zero-Shot Information Extraction</p>
+    <p class="subtitle is-5">
+      Guided Synthetic Data Generation for Zero-Shot<br>Information Extraction
+    </p>
 
     <p>
-      Neil De La Fuente<sup>*</sup> · Oscar Sainz<sup>*</sup> · Iker García-Ferrero · Eneko Agirre<br>
-      <em>HiTZ Centre – UPV/EHU</em> <br>
+      Neil De La Fuente<sup>*</sup> · Oscar Sainz<sup>*</sup> ·
+      Iker García-Ferrero · Eneko Agirre<br>
+      <em>HiTZ Centre – UPV/EHU</em><br>
       ACL Findings 2025
     </p>
     <p><small><sup>*</sup>Equal contribution</small></p>
 
-    <div class="buttons is-centered" style="margin-top:1.2rem">
+    <div class="buttons is-centered" style="margin-top:1rem">
       <!-- PDF -->
       <a class="button is-dark is-rounded"
          href="static/pdfs/guidex_acl25.pdf" target="_blank">
-         <span class="icon"><i class="fas fa-file-pdf"></i></span><span>Paper</span>
+        <span class="icon"><i class="fas fa-file-pdf"></i></span>
+        <span>Paper</span>
       </a>
 
-      <!-- Code (soon) -->
+      <!-- Code  -->
       <span class="button is-dark is-rounded is-soon">
-        <span class="icon"><i class="fab fa-github"></i></span><span>Code (soon)</span>
+        <span class="icon"><i class="fab fa-github"></i></span>
+        <span>Code&nbsp;(soon)</span>
       </span>
 
       <!-- Model -->
       <a class="button is-dark is-rounded"
          href="https://huggingface.co/TODO-model" target="_blank">
-         <span class="icon"><i class="fas fa-robot"></i></span><span>Model</span>
+        <span class="icon"><i class="fas fa-robot"></i></span>
+        <span>Model</span>
       </a>
 
       <!-- Dataset -->
       <a class="button is-dark is-rounded"
          href="https://huggingface.co/datasets/TODO-dataset" target="_blank">
-         <span class="icon"><i class="fas fa-database"></i></span><span>Dataset</span>
+        <span class="icon"><i class="fas fa-database"></i></span>
+        <span>Dataset</span>
       </a>
     </div>
   </div>
 </section>
 
+<!-- =========== Abstract =========== -->
 <section class="section">
   <div class="container is-max-desktop content">
     <h2 class="title is-4">Abstract</h2>
     <p>
-      Information Extraction systems usually break when label definitions change.
-      <strong>GUIDEX</strong> removes that bottleneck: it automatically infers a
-      domain-specific schema, writes detailed guidelines, and generates synthetic,
-      schema-compliant examples. Fine-tuning LLaMa 3.1 with those examples raises
-      the state of the art on seven zero-shot NER benchmarks, gaining up to
-      <strong>+7&nbsp;F1</strong> without human labels and almost
-      <strong>+3&nbsp;F1</strong> when combined with gold data.
-      Code, models and the dataset will be released.
+      IE systems often fail when label definitions change. <b>GUIDEX</b> fixes
+      that: it infers a domain schema, writes guidelines, and generates
+      rule-consistent examples. Fine-tuning LLaMa-3 8B on those examples lifts
+      zero-shot NER by up to <b>+7 F1</b> on seven benchmarks and still helps
+      when gold data is present. The paper, model and data will be released.
     </p>
   </div>
 </section>
 
+<!-- =========== Methodology =========== -->
+<section class="section is-light">
+  <div class="container is-max-desktop content">
+    <h2 class="title is-4">Methodology&nbsp;&nbsp;
+      <span class="tag is-info is-light">4 steps</span></h2>
+    <ol>
+      <li><b>Summarise.</b> The LLM turns each document into bullet
+          points of key facts.</li>
+      <li><b>Structure.</b> Facts are packed into a tiny JSON sketch.</li>
+      <li><b>Draft guidelines.</b> The model writes Python
+          <code>@dataclass</code> specs that define every label and field.</li>
+      <li><b>Annotate.</b> It fills those classes with spans from
+          the text, giving clean training pairs.</li>
+    </ol>
+    <p>
+      A sanity script imports each file; any sample that raises an
+      error is dropped, which cuts hallucinated labels and bad spans.
+    </p>
+  </div>
+</section>
+
+<!-- =========== Results Figure =========== -->
+<section class="section">
+  <div class="container content">
+    <h2 class="title is-4">Results</h2>
+    <div class="figure-wrapper">
+      <figure>
+        <img src="static/images/barplot.png"
+             alt="F1 bar-plot showing gains on seven NER tasks">
+        <figcaption class="has-text-centered">
+          Zero-shot NER. Training on GUIDEX (+Gold) beats the
+          Gold-only model on six out of seven domains.
+        </figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<!-- =========== Footer =========== -->
 <footer class="footer">
   <div class="content has-text-centered">
-    Page built from the
-    <a href="https://github.com/eliahuhorwitz/Academic-project-page-template" target="_blank">
-      Academic Project Page Template
-    </a>.
+    Page built with the
+    <a href="https://github.com/eliahuhorwitz/Academic-project-page-template"
+       target="_blank">Academic&nbsp;Project&nbsp;Page&nbsp;Template</a>.
   </div>
 </footer>
 
-<!-- icons -->
-<script defer src="https://kit.fontawesome.com/2b8f3e36f7.js" crossorigin="anonymous"></script>
+<!-- Font Awesome icons -->
+<script defer src="https://kit.fontawesome.com/2b8f3e36f7.js"
+        crossorigin="anonymous"></script>
 </body>
 </html>
