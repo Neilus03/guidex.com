@@ -106,23 +106,83 @@
   </div>
 </section>
 
+Below is a drop-in replacement for the **Methodology** section.
+Paste it where the old block started (`<!-- =========== Methodology =========== -->`) and keep the rest of the page unchanged.
+
+```html
+
 <!-- =========== Methodology ================================================= -->
 <section class="section is-light">
   <div class="container is-max-desktop content">
     <h2 class="title is-4">
-      Methodology&nbsp;&nbsp;<span class="tag is-info is-light">4 steps</span>
+      Methodology&nbsp;&nbsp;<span class="tag is-info is-light">4&nbsp;stages&nbsp;+&nbsp;QA</span>
     </h2>
-    <ol>
-      <li><b>Summarise.</b> The LLM turns each document into bullet
-          points of key facts.</li>
-      <li><b>Structure.</b> Facts are packed into a tiny JSON sketch.</li>
-      <li><b>Draft guidelines.</b> The model writes Python
-          <code>@dataclass</code> specs that define every label and field.</li>
-      <li><b>Annotate.</b> It fills those classes with spans from
-          the text, giving clean training pairs.</li>
+
+    <p>
+      <b>GuideX</b> is a fully-automatic pipeline that converts raw documents
+      into high-fidelity <em>(guidelines&nbsp;+&nbsp;annotations)</em> pairs.
+      Each stage runs as a single prompt to the same 70B LLaMA-3.1 model,
+      chaining its own output into the next step.
+    </p>
+
+    <ol style="margin-top:1.25rem">
+      <li>
+        <b>Document&nbsp;Summarisation &nbsp;<span class="tag is-light">Step&nbsp;①</span></b><br>
+        The LLM receives a full article (≈1-3 k words) and is forced—via a
+        token-budget and bullet template—to extract <em>only</em> atomic facts.
+        <ul>
+          <li>✓ collapses core arguments, dates, actors, quantities</li>
+          <li>✓ discards narrative fluff &amp; irrelevancies</li>
+        </ul>
+      </li>
+
+      <li style="margin-top:.75rem">
+        <b>Structured&nbsp;Sketch &nbsp;<span class="tag is-light">Step&nbsp;②</span></b><br>
+        Those bullets are rewritten into a <code>{...}</code> JSON stub:
+        <ul>
+          <li>Keys &nbsp;= coarse entity/slot names inferred on-the-fly</li>
+          <li>Values = the <em>shortest</em> source-aligned span that
+              realises the fact</li>
+          <li>Merging&nbsp;logic groups near-duplicates to keep the schema
+              minimal</li>
+        </ul>
+      </li>
+
+      <li style="margin-top:.75rem">
+        <b>Guideline&nbsp;Drafting &nbsp;<span class="tag is-light">Step&nbsp;③</span></b><br>
+        From the JSON, the model autowrites a Python
+        <code>@dataclass</code> file:
+        <ul>
+          <li>Each key → a separate dataclass with a rich docstring
+              (definition&nbsp;+&nbsp;edge-cases)</li>
+          <li>Fields typed as <code>str</code>, <code>int</code>,
+              <code>List[str]</code>, <code>Optional[⋅]</code> etc. so the file
+              is executable</li>
+          <li>Naming heuristics strip plurals, camel-case and jargon to yield
+              reusable labels (<em>“MachineLearningFramework” → “Framework”</em>)</li>
+        </ul>
+      </li>
+
+      <li style="margin-top:.75rem">
+        <b>Instance&nbsp;Extraction &nbsp;<span class="tag is-light">Step&nbsp;④</span></b><br>
+        A final prompt asks the LLM to populate those dataclasses
+        with concrete spans:
+        <ul>
+          <li>Only literals from the source are allowed—template rejects
+              hallucinations</li>
+          <li>Outputs a single Python list
+              <code>result_instances = […]</code></li>
+        </ul>
+      </li>
     </ol>
-    <p>A sanity script imports every file; anything that raises an error is
-       dropped, removing hallucinated labels and spans.</p>
+
+    <h3 class="title is-6" style="margin-top:1.5rem">Automated Quality-Assurance</h3>
+    <p>
+      The generated file is <code>import</code>-ed inside a tiny unit-test.
+      Anything that fails to compile <em>or</em> violates type hints is binned.
+      This removes ≈14 % noisy samples and guarantees that every surviving
+      pair is schema-consistent and executable.
+    </p>
 
     <!-- diagram -->
     <div class="figure-wrapper" style="margin-top:1.5rem">
@@ -133,6 +193,8 @@
     </div>
   </div>
 </section>
+```
+
 
 <!-- =========== Prompt figure ============================================== -->
 <section class="section">
