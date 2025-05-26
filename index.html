@@ -2,192 +2,86 @@
 <html>
 <head>
   <meta charset="utf-8">
-
-  <!-- **** Social-share meta **** -->
-  <meta name="description"        content="GUIDEX – Guided synthetic data generation for zero-shot information extraction.">
-  <meta property="og:title"       content="GUIDEX – ACL Findings 2025"/>
-  <meta property="og:description" content="Synthetic data, automatic schemas and guidelines for cross-domain information extraction."/>
-  <meta property="og:url"         content="https://<your-user>.github.io/guidex-acl25-project-page/"/>
-  <meta property="og:image"       content="static/images/og_banner.png" /> <!-- 1200×630px -->
-  <meta name="twitter:title"      content="GUIDEX – ACL Findings 2025">
-  <meta name="twitter:description"content="Guided synthetic data generation for zero-shot IE">
-  <meta name="twitter:image"      content="static/images/twitter_banner.png"><!-- 1200×600px -->
-  <meta name="twitter:card"       content="summary_large_image">
-  <meta name="keywords"           content="information extraction, zero-shot, synthetic data, large language models">
-  <meta name="viewport"           content="width=device-width, initial-scale=1">
-
   <title>GUIDEX – ACL Findings 2025</title>
-  <link rel="icon" type="image/x-icon" href="static/images/favicon.ico">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="Guided synthetic data generation for zero-shot information extraction (ACL Findings 2025).">
+  <link rel="icon" href="static/images/favicon.ico">
 
-  <!-- **** CSS & JS links – KEEP **** -->
-  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro" rel="stylesheet">
-  <link rel="stylesheet" href="static/css/bulma.min.css">
-  <link rel="stylesheet" href="static/css/bulma-carousel.min.css">
-  <link rel="stylesheet" href="static/css/bulma-slider.min.css">
-  <link rel="stylesheet" href="static/css/fontawesome.all.min.css">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
-  <link rel="stylesheet" href="static/css/index.css">
-  <script defer src="static/js/fontawesome.all.min.js"></script>
-  <script src="static/js/bulma-carousel.min.js"></script>
-  <script src="static/js/bulma-slider.min.js"></script>
-  <script src="static/js/index.js"></script>
+  <!-- tiny bit of Bulma just for layout -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+  <style>
+    body {font-family: "Noto Sans", sans-serif;}
+    .hero {padding: 2.5rem 1.5rem;}
+    .buttons .button.is-soon {opacity:.4;cursor:default;}
+  </style>
 </head>
-
 <body>
-<!-- ─────────────────────────── Hero header ─────────────────────────── -->
+
 <section class="hero">
-  <div class="hero-body">
-    <div class="container is-max-desktop">
-      <div class="columns is-centered">
-        <div class="column has-text-centered">
-          <h1 class="title is-1 publication-title">GUIDEX</h1>
-          <div class="is-size-5 publication-authors">
-            <span class="author-block"><a href="https://hitz.eus/people/neil" target="_blank">Neil De La Fuente</a><sup>*</sup>,</span>
-            <span class="author-block"><a href="https://oscar-sainz.github.io" target="_blank">Oscar Sainz</a><sup>*</sup>,</span>
-            <span class="author-block"><a href="https://iker.github.io" target="_blank">Iker García-Ferrero</a>,</span>
-            <span class="author-block"><a href="https://eagirre.github.io" target="_blank">Eneko Agirre</a></span>
-          </div>
+  <div class="container has-text-centered">
+    <h1 class="title is-2">GUIDEX</h1>
+    <p class="subtitle is-5">Guided Synthetic Data Generation for Zero-Shot Information Extraction</p>
 
-          <div class="is-size-5 publication-authors">
-            <span class="author-block">HiTZ – UPV/EHU<br>ACL Findings 2025</span>
-            <span class="eql-cntrb"><small><br><sup>*</sup>Equal contribution</small></span>
-          </div>
+    <p>
+      Neil De La Fuente<sup>*</sup> · Oscar Sainz<sup>*</sup> · Iker García-Ferrero · Eneko Agirre<br>
+      <em>HiTZ Centre – UPV/EHU</em> <br>
+      ACL Findings 2025
+    </p>
+    <p><small><sup>*</sup>Equal contribution</small></p>
 
-          <!-- ************ Link buttons ************ -->
-          <div class="column has-text-centered">
-            <div class="publication-links">
-              <!-- Paper PDF -->
-              <span class="link-block">
-                <a href="static/pdfs/guidex_acl25.pdf" target="_blank"
-                   class="external-link button is-normal is-rounded is-dark">
-                  <span class="icon"><i class="fas fa-file-pdf"></i></span>
-                  <span>Paper</span>
-                </a>
-              </span>
+    <div class="buttons is-centered" style="margin-top:1.2rem">
+      <!-- PDF -->
+      <a class="button is-dark is-rounded"
+         href="static/pdfs/guidex_acl25.pdf" target="_blank">
+         <span class="icon"><i class="fas fa-file-pdf"></i></span><span>Paper</span>
+      </a>
 
-              <!-- Code -->
-              <span class="link-block">
-                <a href="https://github.com/<your-user>/guidex" target="_blank"
-                   class="external-link button is-normal is-rounded is-dark">
-                  <span class="icon"><i class="fab fa-github"></i></span>
-                  <span>Code</span>
-                </a>
-              </span>
+      <!-- Code (soon) -->
+      <span class="button is-dark is-rounded is-soon">
+        <span class="icon"><i class="fab fa-github"></i></span><span>Code (soon)</span>
+      </span>
 
-              <!-- arXiv (if any) -->
-              <!--
-              <span class="link-block">
-                <a href="https://arxiv.org/abs/XXXX.XXXXX" target="_blank"
-                   class="external-link button is-normal is-rounded is-dark">
-                  <span class="icon"><i class="ai ai-arxiv"></i></span><span>arXiv</span>
-                </a>
-              </span>
-              -->
-            </div>
-          </div>
-          <!-- **************************************** -->
-        </div>
-      </div>
+      <!-- Model -->
+      <a class="button is-dark is-rounded"
+         href="https://huggingface.co/TODO-model" target="_blank">
+         <span class="icon"><i class="fas fa-robot"></i></span><span>Model</span>
+      </a>
+
+      <!-- Dataset -->
+      <a class="button is-dark is-rounded"
+         href="https://huggingface.co/datasets/TODO-dataset" target="_blank">
+         <span class="icon"><i class="fas fa-database"></i></span><span>Dataset</span>
+      </a>
     </div>
   </div>
 </section>
 
-<!-- ─────────────────────────── Teaser video ─────────────────────────── -->
-<section class="hero teaser">
-  <div class="container is-max-desktop">
-    <div class="hero-body">
-      <video poster="static/images/teaser_frame.png" id="teaser" autoplay controls muted loop height="100%">
-        <source src="static/videos/teaser.mp4" type="video/mp4">
-      </video>
-      <h2 class="subtitle has-text-centered">
-        TODO-one-sentence punch line of your method.
-      </h2>
-    </div>
-  </div>
-</section>
-
-<!-- ─────────────────────────── Abstract ─────────────────────────── -->
-<section class="section hero is-light">
-  <div class="container is-max-desktop">
-    <div class="columns is-centered has-text-centered">
-      <div class="column is-four-fifths">
-        <h2 class="title is-3">Abstract</h2>
-        <div class="content has-text-justified">
-          <p>
-          Information Extraction (IE) systems are usually tailored to a single domain, which calls for expert schema design, manual annotation and expensive model re-training. Performance of Large Language Models drops sharply when label definitions drift. <strong>GUIDEX</strong> removes that bottleneck: it automatically builds domain-specific schemas, writes guidelines and produces synthetic instances. Fine-tuning LLaMa 3.1 on GUIDEX raises the state of the art on seven zero-shot NER benchmarks, gaining up to 7 F1 over the best previous method with no human labels, and nearly 3 F1 when combined with gold data. Models trained on GUIDEX better grasp complex, domain-specific annotation rules. Code, models and synthetic sets will be released.
-          </p>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ─────────────────────────── Image carousel (optional) ─────────────────────────── -->
-<section class="hero is-small">
-  <div class="hero-body">
-    <div class="container">
-      <div id="results-carousel" class="carousel results-carousel">
-        <!-- 4 images – replace files and captions -->
-        <div class="item">
-          <img src="static/images/carousel1.jpg" alt="TODO-caption 1"/>
-          <h2 class="subtitle has-text-centered">TODO-caption 1</h2>
-        </div>
-        <div class="item">
-          <img src="static/images/carousel2.jpg" alt="TODO-caption 2"/>
-          <h2 class="subtitle has-text-centered">TODO-caption 2</h2>
-        </div>
-        <div class="item">
-          <img src="static/images/carousel3.jpg" alt="TODO-caption 3"/>
-          <h2 class="subtitle has-text-centered">TODO-caption 3</h2>
-        </div>
-        <div class="item">
-          <img src="static/images/carousel4.jpg" alt="TODO-caption 4"/>
-          <h2 class="subtitle has-text-centered">TODO-caption 4</h2>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ─────────────────────────── Poster (optional) ─────────────────────────── -->
-<section class="hero is-small is-light">
-  <div class="hero-body">
-    <div class="container">
-      <h2 class="title">Poster</h2>
-      <iframe  src="static/pdfs/poster.pdf" width="100%" height="550"></iframe>
-    </div>
-  </div>
-</section>
-
-<!-- ─────────────────────────── BibTeX ─────────────────────────── -->
-<section class="section" id="BibTeX">
+<section class="section">
   <div class="container is-max-desktop content">
-    <h2 class="title">BibTeX</h2>
-<pre><code>@inproceedings{deLaFuente2025guidex,
-  title     = {{GUIDEX}: Guided Synthetic Data Generation for Zero-Shot Information Extraction},
-  author    = {De La Fuente, Neil and Sainz, Oscar and García-Ferrero, Iker and Agirre, Eneko},
-  booktitle = {Findings of ACL},
-  year      = {2025},
-  url       = {https://TODO-link-to-pdf-or-acl-anthology}
-}</code></pre>
+    <h2 class="title is-4">Abstract</h2>
+    <p>
+      Information Extraction systems usually break when label definitions change.
+      <strong>GUIDEX</strong> removes that bottleneck: it automatically infers a
+      domain-specific schema, writes detailed guidelines, and generates synthetic,
+      schema-compliant examples. Fine-tuning LLaMa 3.1 with those examples raises
+      the state of the art on seven zero-shot NER benchmarks, gaining up to
+      <strong>+7&nbsp;F1</strong> without human labels and almost
+      <strong>+3&nbsp;F1</strong> when combined with gold data.
+      Code, models and the dataset will be released.
+    </p>
   </div>
 </section>
 
-<!-- ─────────────────────────── Footer (template) ─────────────────────────── -->
 <footer class="footer">
-  <div class="container">
-    <div class="columns is-centered">
-      <div class="column is-8">
-        <div class="content">
-          <p>
-            This page was built from the
-            <a href="https://github.com/eliahuhorwitz/Academic-project-page-template" target="_blank">
-              Academic Project Page Template</a>.
-          </p>
-        </div>
-      </div>
-    </div>
+  <div class="content has-text-centered">
+    Page built from the
+    <a href="https://github.com/eliahuhorwitz/Academic-project-page-template" target="_blank">
+      Academic Project Page Template
+    </a>.
   </div>
 </footer>
+
+<!-- icons -->
+<script defer src="https://kit.fontawesome.com/2b8f3e36f7.js" crossorigin="anonymous"></script>
 </body>
 </html>
