@@ -124,6 +124,7 @@
 
 
 <!-- =========== Methodology ================================================= -->
+
 <section class="section is-light">
   <div class="container is-max-desktop content">
     <h2 class="title is-4">
@@ -131,84 +132,69 @@
     </h2>
 
     <p>
-      <b>GuideX</b> is a fully-automatic pipeline that converts raw documents
-      into high-fidelity <em>(guidelines&nbsp;+&nbsp;annotations)</em> pairs.
-      Each stage runs as a single prompt to the same 70B LLaMA-3.1 model,
-      chaining its own output into the next step.
+      <b>GUIDEX</b> is a <em>fully-automatic</em> pipeline that transforms raw documents into
+      executable <em>(guidelines&nbsp;+&nbsp;annotations)</em> pairs.  A single
+      <strong>LLaMA-3.1&nbsp;70B&nbsp;Instruct</strong> model is queried four times in succession,
+      each prompt feeding directly into the next&nbsp;stage.  The design follows the
+      four-step recipe described in&nbsp;Section&nbsp;3 and Figure&nbsp;2 of the paper.
     </p>
 
     <ol style="margin-top:1.25rem">
       <li>
-        <b>Document&nbsp;Summarisation &nbsp;<span class="tag is-light">Step&nbsp;①</span></b><br>
-        The LLM receives a full article (≈1-3 k words) and is forced—via a
-        token-budget and bullet template—to extract <em>only</em> atomic facts.
-        <ul>
-          <li>✓ collapses core arguments, dates, actors, quantities</li>
-          <li>✓ discards narrative fluff &amp; irrelevancies</li>
-        </ul>
+        <b>Document&nbsp;Summarisation&nbsp;<span class="tag is-light">①</span></b><br>
+        The model receives the entire article (≈&nbsp;1–3 k words on average) and is
+        constrained—via a bullet template and a tight token budget—to emit
+        <em>only atomic facts</em>: key actors, dates, figures and claims,
+        stripping away narrative filler. :contentReference[oaicite:0]{index=0}
       </li>
 
-      <li style="margin-top:.75rem">
-        <b>Structured&nbsp;Sketch &nbsp;<span class="tag is-light">Step&nbsp;②</span></b><br>
-        Those bullets are rewritten into a <code>{...}</code> JSON stub:
-        <ul>
-          <li>Keys &nbsp;= coarse entity/slot names inferred on-the-fly</li>
-          <li>Values = the <em>shortest</em> source-aligned span that
-              realises the fact</li>
-          <li>Merging&nbsp;logic groups near-duplicates to keep the schema
-              minimal</li>
-        </ul>
+      <li style="margin-top:.9rem">
+        <b>Structured&nbsp;Representation&nbsp;<span class="tag is-light">②</span></b><br>
+        The bullets are re-encoded into a minimal <code>{...}</code> <strong>JSON
+        sketch</strong> whose keys are coarse, on-the-fly entity/slot names and whose
+        values are the <em>shortest</em> source-aligned spans that realise each fact.  A
+        dedup-and-merge pass keeps the schema compact. :contentReference[oaicite:1]{index=1}
       </li>
 
-      <li style="margin-top:.75rem">
-        <b>Guideline&nbsp;Drafting &nbsp;<span class="tag is-light">Step&nbsp;③</span></b><br>
-        From the JSON, the model autowrites a Python
-        <code>@dataclass</code> file:
-        <ul>
-          <li>Each key → a separate dataclass with a rich docstring
-              (definition&nbsp;+&nbsp;edge-cases)</li>
-          <li>Fields typed as <code>str</code>, <code>int</code>,
-              <code>List[str]</code>, <code>Optional[⋅]</code> etc. so the file
-              is executable</li>
-          <li>Naming heuristics strip plurals, camel-case and jargon to yield
-              reusable labels (<em>"MachineLearningFramework" → "Framework"</em>)</li>
-        </ul>
+      <li style="margin-top:.9rem">
+        <b>Guideline&nbsp;Generation&nbsp;<span class="tag is-light">③</span></b><br>
+        From that JSON the LLM autowrites a Python
+        <code>@dataclass</code> file.  Every key becomes its own dataclass with a
+        long natural-language docstring that lists definitions
+        and edge-cases; attributes are typed as <code>str</code>, <code>int</code>,
+        <code>List[str]</code> or <code>Optional[⋅]</code> so the file can be
+        <em>imported</em> later.  Naming heuristics normalise plurals,
+        camel-case and jargon (e.g.&nbsp;<code>MachineLearningFramework</code>→<code>Framework</code>). :contentReference[oaicite:2]{index=2}
       </li>
 
-      <li style="margin-top:.75rem">
-        <b>Instance&nbsp;Extraction &nbsp;<span class="tag is-light">Step&nbsp;④</span></b><br>
-        A final prompt asks the LLM to populate those dataclasses
-        with concrete spans:
-        <ul>
-          <li>Only literals from the source are allowed—template rejects
-              hallucinations</li>
-          <li>Outputs a single Python list
-              <code>result_instances = […]</code></li>
-        </ul>
+      <li style="margin-top:.9rem">
+        <b>Instance&nbsp;Extraction&nbsp;<span class="tag is-light">④</span></b><br>
+        A final prompt instantiates those dataclasses with concrete,
+        <u>verbatim</u> spans from the source text, returning a single Python list
+        <code>result_instances = [&nbsp;...]</code>.  Any hallucinated value
+        is rejected by the prompt template itself. :contentReference[oaicite:3]{index=3}
       </li>
     </ol>
 
     <h3 class="title is-6" style="margin-top:1.5rem">Automated Quality-Assurance</h3>
     <p>
-      The generated file is <code>import</code>-ed inside a tiny unit-test.
-      Anything that fails to compile <em>or</em> violates type hints is binned.
-      This removes noisy samples and guarantees that every surviving
-      pair is schema-consistent and executable.
+      Each generated file is immediately <code>import</code>-ed inside a unit-test.
+      Samples that fail to compile or violate type hints are discarded,
+      eliminating spurious labels and mis-aligned spans.  This filter keeps
+      only <em>schema-consistent, executable</em> pairs and reduces noise
+      before training. :contentReference[oaicite:4]{index=4}
     </p>
 
-    <!-- diagram -->
+    <!-- pipeline diagram -->
     <div class="figure-wrapper" style="margin-top:1.5rem">
       <figure>
         <img src="static/images/figure_main.jpg"
-             alt="4-step pipeline diagram">
+             alt="GUIDEX four-stage pipeline">
       </figure>
     </div>
   </div>
-
-    
-
-
 </section>
+
 
 <!-- =========== Results ===================================================== -->
 <section class="section is-light">
